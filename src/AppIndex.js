@@ -1,28 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import MainNav from './components/MainNav';
-import Button from './components/elements/Button';
+import FieldBlock from './components/elements/FieldBlock';
 
 function AppIndex(){
+    const [username, setUsername] = useState();
+    const [password, setPassword] = useState();
     return(
         <main className="app">
             <MainNav />
             <div className="main-content">
-               <Button variant="primary" onClick={() => window.alert("Button Clicked")}>
-                   Button One
-                </Button>
-                <Button variant="secondary">
-                   Button One
-                </Button>
-                <Button variant="primary-alt">
-                   Button One
-                </Button>
-                <Button variant="danger">
-                   Button One
-                </Button>
-
-                <Button>
-                    No props
-                </Button>
+                <h2>Your username will be: {username}</h2>
+               <FieldBlock
+                    id="username" value={username} onChange={(evt) => {setUsername(evt.target.value)}} 
+                    label="Username:"
+               />
+               <FieldBlock
+                    id="password" value={password} onChange={(evt) => setPassword(evt.target.value)}
+                    label="Password:" type="password" feedback="must be 8 characters" isInvalid={true}
+               />
                
             </div>
             
