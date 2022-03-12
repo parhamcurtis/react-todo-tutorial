@@ -1,15 +1,17 @@
 import React, {useState} from 'react';
 import MainNav from './components/MainNav';
 import FieldBlock from './components/elements/FieldBlock';
+import {jsonPost} from './helpers/Ajax';
 
 function AppIndex(){
     const [username, setUsername] = useState();
     const [password, setPassword] = useState();
+    jsonPost('users/login', {email:'curtis@freeskills.com', password: 'password'}, (resp) => {console.log(resp)});
     return(
         <main className="app">
             <MainNav />
             <div className="main-content">
-                <h2>Your username will be: {username}</h2>
+                <h2>Your api domain is: {process.env.REACT_APP_API}</h2>
                <FieldBlock
                     id="username" value={username} onChange={(evt) => {setUsername(evt.target.value)}} 
                     label="Username:"
