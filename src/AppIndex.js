@@ -1,26 +1,36 @@
 import React, {useState} from 'react';
 import MainNav from './components/MainNav';
 import FieldBlock from './components/elements/FieldBlock';
-import {jsonPost} from './helpers/Ajax';
+import {Form} from './helpers/Form';
+import Button from './components/elements/Button';
 
 function AppIndex(){
-    const [username, setUsername] = useState();
-    const [password, setPassword] = useState();
-    jsonPost('users/login', {email:'curtis@freeskills.com', password: 'password'}, (resp) => {console.log(resp)});
+
+    const [fields, setFields] = useState({
+        email: {value: "", isInvalid: false, msg: ""},
+        password: {value: "", isInvalid: false, msg: ""}
+    });
+
+    async function success(resp){
+        console.log(resp);
+    }
+
+    const form = new Form('users/login', fields, setFields, success);
+
     return(
         <main className="app">
             <MainNav />
             <div className="main-content">
                 <h2>Your api domain is: {process.env.REACT_APP_API}</h2>
                <FieldBlock
-                    id="username" value={username} onChange={(evt) => {setUsername(evt.target.value)}} 
-                    label="Username:"
+                    id="email" value={fields.email.value} onChange={form.handleInputChanges} 
+                    label="Username:" isInvalid={fields.email.isInvalid} feedback={fields.email.msg}
                />
                <FieldBlock
-                    id="password" value={password} onChange={(evt) => setPassword(evt.target.value)}
-                    label="Password:" type="password" feedback="must be 8 characters" isInvalid={true}
+                    id="password" value={fields.password.value} onChange={form.handleInputChanges}
+                    label="Password:" type="password" feedback={fields.password.msg} isInvalid={fields.password.isInvalid}
                />
-               
+               <Button variant="primary" onClick={form.submitForm}>Log In</Button>
             </div>
             
         </main>
