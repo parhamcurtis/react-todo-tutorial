@@ -1,23 +1,26 @@
-import React, {useState, useContext} from 'react';
+import React, {useEffect, useContext} from 'react';
+import {Switch, Route, useHistory} from 'react-router-dom';
 import MainNav from './components/MainNav';
-import FieldBlock from './components/elements/FieldBlock';
-import {Form} from './helpers/Form';
-import Button from './components/elements/Button';
 import {AuthContext} from './contexts/AuthContext';
 
 function AppIndex(){
 
-    const [fields, setFields] = useState({
-        email: {value: "", isInvalid: false, msg: ""},
-        password: {value: "", isInvalid: false, msg: ""}
-    });
-    const data = useContext(AuthContext);
+    const history = useHistory();
+    const [authStore, authDispatch] = useContext(AuthContext);
 
-    async function success(resp){
-        console.log(resp);
+    useEffect(() => {
+        authCheck();
+        //eslint-disable-next-line react-hooks/exhaustive-deps
+    }, []);
+
+    async function authCheck(){
+        await authDispatch({type: 'isLoggeedIn'});
+        if(!authStore.loggedIn) {
+            history.push('/auth/login');
+        }
+        return authStore.loggedIn;
     }
 
-    const form = new Form('users/login', fields, setFields, success);
 
     return(
         <main className="app">

@@ -11,9 +11,12 @@ function Login(){
         email: {value:"", isInvalid:false, msg:""},
         password: {value:"", isInvalid:false, msg:""}
     });
+    const [, authDispatch, getUser] = useContext(AuthContext);
 
     async function success(resp){
-        console.log(resp);
+        authDispatch({type:'login', payload: resp.token});
+        await getUser();
+        history.push('/');
     }
 
     const form = new Form('users/login', fields, setFields, success);

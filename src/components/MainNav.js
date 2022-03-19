@@ -1,7 +1,16 @@
-import React from 'react';
+import React, {useContext} from 'react';
 import {Link, useHistory} from 'react-router-dom';
+import {AuthContext} from '../contexts/AuthContext';
 
 function MainNav(props){
+
+    const [authStore, authDispatch] = useContext(AuthContext);
+    const history = useHistory();
+    function logout(){
+        authDispatch({type: 'logout'});
+        history.push('/auth/login');
+    }
+
     return(
         <nav className="main-nav">
             <section className="left">
@@ -11,8 +20,8 @@ function MainNav(props){
             </section>
 
             <section className="right">
-                <div className="greeting">Hi Curtis</div>
-                <button className="right" onClick={()=> window.alert("Log Out")}>Log Out</button>
+                <div className="greeting">Hi {authStore.user?.fname || ""}</div>
+                <button className="right" onClick={logout}>Log Out</button>
             </section>
         </nav>
     );
