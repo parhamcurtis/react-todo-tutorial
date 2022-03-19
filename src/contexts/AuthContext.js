@@ -4,7 +4,6 @@ import {jsonGet} from '../helpers/Ajax';
 export const AuthContext = createContext();
 
 
-
 function reducer(store, action) {
     switch(action.type) {
         case 'login':

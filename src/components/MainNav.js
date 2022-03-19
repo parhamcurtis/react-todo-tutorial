@@ -1,14 +1,18 @@
 import React, {useContext} from 'react';
 import {Link, useHistory} from 'react-router-dom';
 import {AuthContext} from '../contexts/AuthContext';
+import {useAlert} from 'react-alert';
 
 function MainNav(props){
 
     const [authStore, authDispatch] = useContext(AuthContext);
     const history = useHistory();
+    const alert = useAlert();
+    
     function logout(){
         authDispatch({type: 'logout'});
         history.push('/auth/login');
+        alert.show("You have been successfully logged out!", {timeout:6000});
     }
 
     return(

@@ -217,6 +217,15 @@ nav.main-nav .greeting {
     background-color: var(--gray-dark);
 }
 
+a {
+    color: var(--theme-accent);
+    text-decoration: none;
+}
+
+a:hover {
+    color: var(--theme-xdark);
+}
+
 /**************** Form Styles ********************/
 div.form-group {
     width: 100%;
