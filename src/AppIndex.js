@@ -2,6 +2,7 @@ import React, {useEffect, useContext} from 'react';
 import {Switch, Route, useHistory} from 'react-router-dom';
 import MainNav from './components/MainNav';
 import {AuthContext} from './contexts/AuthContext';
+import Todos from './components/todos/Todos';
 
 function AppIndex(){
 
@@ -26,8 +27,9 @@ function AppIndex(){
         <main className="app">
             <MainNav />
             <div className="main-content">
-                <h2>Your api domain is: {process.env.REACT_APP_API}</h2>
-                
+                <Switch>
+                    <Route path="/" component={Todos} />    
+                </Switch>                
             </div>
             
         </main>
