@@ -13,6 +13,19 @@ function reducer(store, action){
             return {...store, todos: todos, dirty: true}
         case 'UpdateIncomplete':
             return {...store, incomplete: action.payload, dirty: false}
+        case 'setTodos': 
+            return {...store, todos: action.payload.todos, total: action.payload.total, dirty: true}
+        case 'TodoUpdated':
+           index = store.todos.findIndex(todo => todo.id.toString() === action.payload.id.toString())
+           todos = store.todos;
+           todos.splice(index, 1, action.payload);
+           return {...store, todos: todos, dirty: true} 
+
+        case 'TodoDeleted':
+            index = store.todos.findIndex(todo => todo.id.toString() === action.payload.toString());
+            todos = store.todos;
+            todos.splice(index, 1);
+            return {...store, todos: todos, dirty: true}
         default:
             return store;
     }
