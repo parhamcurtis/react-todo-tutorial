@@ -22,7 +22,7 @@ function MainNav(props){
             <section className="left">
                 <h2 className="brand">My Todos</h2> 
                 <Link to="/">My Todos ({todoStore.incomplete})</Link>
-                <Link to="contacts">My Contacts</Link>
+                <Link to="/contacts">My Contacts</Link>
             </section>
 
             <section className="right">

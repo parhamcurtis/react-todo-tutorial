@@ -4,13 +4,17 @@ import MainNav from './components/MainNav';
 import {AuthContext} from './contexts/AuthContext';
 import { TodoContext } from './contexts/TodoContext';
 import Todos from './components/todos/Todos';
+import Contacts from './components/contacts/Contacts';
+import ContactForm from './components/contacts/ContactForm';
 import { jsonGet } from './helpers/Ajax';
+import {ContactContext} from './contexts/ContactContext';
 
 function AppIndex(){
 
     const history = useHistory();
     const [authStore, authDispatch] = useContext(AuthContext);
-    const [todoStore, todoDispatch] = useContext(TodoContext);
+    const [, todoDispatch] = useContext(TodoContext);
+    const [, contactDispatch] = useContext(ContactContext);
 
     useEffect(() => {
         authCheck();
@@ -32,6 +36,10 @@ function AppIndex(){
         if(resp.success) {
             todoDispatch({type:'setTodos', payload: {todos: resp.data, total: resp.total}});
         }
+        const contactResp = await jsonGet('contacts');
+        if(contactResp.success) {
+            contactDispatch({type:'setContacts', payload:{contacts: contactResp.data, total: contactResp.total}});
+        }
     }
 
 
@@ -40,6 +48,8 @@ function AppIndex(){
             <MainNav />
             <div className="main-content">
                 <Switch>
+                    <Route path="/contacts/:id" component={ContactForm} />
+                    <Route path="/contacts" component={Contacts} />
                     <Route path="/" component={Todos} />    
                 </Switch>                
             </div>

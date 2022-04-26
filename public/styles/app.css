@@ -90,6 +90,7 @@ a, a:visited {
 .flex-grow-2 {flex-grow: 2;}
 .flex-grow-3 {flex-grow: 3;}
 .flex-grow-4 {flex-grow: 4;}
+.flex-gap-18 {gap: 18px;}
 .flex-gap-32 {gap: 32px;}
 
 /**************** nav styles ******************/
@@ -287,4 +288,21 @@ div.form-group.is-invalid :is(.form-control, .form-control:focus) {
 
 .trash-button:hover {
     cursor: pointer;
+}
+
+/*****************Table STyles ****************************/
+table {
+    width: 100%;
+    background-color: #FFF;
+    border-collapse: collapse;
+}
+table tr :is(th, td) {
+    width: auto;
+    text-align: left;
+    border: 1px solid var(--gray-medium);
+    padding: 8px;
+}
+
+table tbody tr:nth-child(odd), table  tbody tr:hover {
+    background-color: var(--gray-xlight);
 }

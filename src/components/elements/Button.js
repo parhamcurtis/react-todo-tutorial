@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import {PropTypes} from 'prop-types';
 
 const Button = (props) => {
@@ -10,7 +10,7 @@ const Button = (props) => {
         klass += ` btn--${props.size}` 
     }
     return(
-        <button className={klass} onClick={props.onClick}>{props.children}</button>
+        <button className={klass} onClick={props.onClick} style={props.style}>{props.children}</button>
     );
 }
 
@@ -23,15 +23,5 @@ Button.propTypes = {
     onClick: PropTypes.func.isRequired,
     variant: PropTypes.string.isRequired
 };
-
-
-// class based component just here for example
-export class Btn extends Component {
-    render() {
-        return(
-            <button>{this.props.children}</button>
-        );
-    }
-}
 
 export default Button;
